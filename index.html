@@ -1,119 +1,44 @@
 <!DOCTYPE html>
 <html lang="ru">
-
 <head>
     <meta charset="UTF-8">
-    <title>Сигнальный Сайн — Lucky Jet</title>
-    <style>
-        body {
-            background-color: #1e1e2f;
-            color: #ffffff;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            height: 100vh;
-            margin: 0;
-            padding-top: 40px;
-            text-align: center;
-        }
-
-        h1 {
-            color: #2aabee;
-            margin-bottom: 20px;
-            font-size: 28px;
-        }
-
-        #history {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin-bottom: 30px;
-        }
-
-        .history-item {
-            background-color: #2a2a3a;
-            padding: 8px 12px;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 500;
-        }
-
-        #coefficient {
-            font-size: 64px;
-            font-weight: bold;
-            margin: 30px 0;
-        }
-
-        button {
-            background-color: #2aabee;
-            color: #fff;
-            border: none;
-            padding: 16px 32px;
-            font-size: 18px;
-            font-weight: 500;
-            border-radius: 14px;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-
-        button:hover {
-            background-color: #1a8cd8;
-        }
-
-        .footer {
-            position: absolute;
-            bottom: 15px;
-            font-size: 14px;
-            color: #777;
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Розыгрыши призов</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script src="script.js" defer></script>
 </head>
-
 <body>
-    <h1>🚀Free Lucky Jet Signals</h1>
-    <div id="history"></div>
-    <div id="coefficient">—</div>
-    <button onclick="generateCoefficient()">🚀Получить Cигнал</button>
-    <div class="footer">t.me/LuckyJetFreeSignalsChanel</div>
+    <div class="container">
+        <header>
+            <h1>Розыгрыши призов</h1>
+            <p>Участвуйте и выигрывайте крутые призы!</p>
+        </header>
 
-    <script>
-        const history = [];
+        <div id="auth-section">
+            <button id="auth-btn" class="btn">Войти через Telegram</button>
+        </div>
 
-        function generateCoefficient() {
-            const r = Math.random();
-            let coeff;
+        <div id="user-section" class="hidden">
+            <div class="user-info">
+                <img id="user-avatar" src="" alt="Аватар">
+                <div>
+                    <h2 id="user-name"></h2>
+                    <p id="user-id"></p>
+                </div>
+            </div>
+            
+            <div class="raffles">
+                <h2>Текущие розыгрыши</h2>
+                <div id="raffles-list" class="raffles-list">
+                    <!-- Розыгрыши будут загружены через JS -->
+                </div>
+            </div>
+        </div>
 
-            if (r < 0.70) {
-                coeff = (1 + Math.random()).toFixed(2);
-            } else if (r < 0.90) {
-                coeff = (2 + Math.random() * 8).toFixed(2);
-            } else if (r < 0.99) {
-                coeff = (10 + Math.random() * 40).toFixed(2);
-            } else {
-                coeff = (50 + Math.random() * 950).toFixed(2);
-            }
-
-            document.getElementById('coefficient').textContent = coeff + "x";
-
-            history.unshift(coeff + "x");
-            if (history.length > 5) history.pop();
-            renderHistory();
-        }
-
-        function renderHistory() {
-            const container = document.getElementById('history');
-            container.innerHTML = "";
-            history.forEach(value => {
-                const item = document.createElement('div');
-                item.className = "history-item";
-                item.textContent = value;
-                container.appendChild(item);
-            });
-        }
-    </script>
+        <div id="admin-link" class="hidden">
+            <a href="admin.html" class="btn admin-btn">Админ-панель</a>
+        </div>
+    </div>
 </body>
-
 </html>
