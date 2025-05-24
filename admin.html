@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Админ-панель | Розыгрыши</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script src="admin.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Админ-панель</h1>
+            <p>Управление розыгрышами и участниками</p>
+        </header>
+
+        <div id="admin-auth" class="hidden">
+            <p>Доступ только для администраторов.</p>
+            <button id="admin-auth-btn" class="btn">Войти как администратор</button>
+        </div>
+
+        <div id="admin-panel" class="hidden">
+            <div class="admin-nav">
+                <button class="tab-btn active" data-tab="raffles">Розыгрыши</button>
+                <button class="tab-btn" data-tab="participants">Участники</button>
+                <button class="tab-btn" data-tab="winners">Победители</button>
+            </div>
+
+            <div class="tab-content" id="raffles-tab">
+                <h2>Управление розыгрышами</h2>
+                <button id="add-raffle-btn" class="btn">Добавить розыгрыш</button>
+                
+                <div class="raffle-form hidden" id="raffle-form">
+                    <input type="text" id="raffle-name" placeholder="Название розыгрыша">
+                    <textarea id="raffle-description" placeholder="Описание"></textarea>
+                    <input type="text" id="raffle-prize" placeholder="Приз">
+                    <input type="date" id="raffle-date">
+                    <button id="save-raffle-btn" class="btn">Сохранить</button>
+                </div>
+
+                <div id="admin-raffles-list" class="raffles-list">
+                    <!-- Список розыгрышей для админа -->
+                </div>
+            </div>
+
+            <div class="tab-content hidden" id="participants-tab">
+                <h2>Участники</h2>
+                <div id="participants-list">
+                    <!-- Список участников -->
+                </div>
+            </div>
+
+            <div class="tab-content hidden" id="winners-tab">
+                <h2>Победители</h2>
+                <button id="draw-winners-btn" class="btn">Провести розыгрыш</button>
+                <div id="winners-list">
+                    <!-- Список победителей -->
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
