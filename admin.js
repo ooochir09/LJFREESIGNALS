@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 localStorage.setItem('tg_user', JSON.stringify(userData));
                 
                 // Проверяем, является ли пользователь админом
-                if (user.id === 123456789 || user.id === 987654321) {
+                if (user.id === 5354822471 || user.id === 5288984314) {
                     adminAuth.classList.add('hidden');
                     adminPanel.classList.remove('hidden');
                     loadAdminData();
