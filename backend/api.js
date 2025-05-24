@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const { v4: uuidv4 } = require('uuid');
 
 const app = express();
 const ADMIN_IDS = [5354822471, 5288984314];
@@ -18,11 +19,21 @@ app.post('/api/createRaffle', (req, res) => {
   }
 
   if (!title || !Array.isArray(prizes) || prizes.length === 0) {
-    return res.status(400).json({ message: 'Данные невалидны' });
+    return res.status(400).json({ message: 'Некорректные данные' });
   }
 
-  raffles.push({ title, prizes, createdAt: new Date() });
-  res.json({ message: 'Розыгрыш создан!' });
+  const newRaffle = {
+    id: uuidv4(),
+    title,
+    prizes,
+    createdBy: user_id,
+    createdAt: new Date(),
+    participants: [],
+    winners: []
+  };
+
+  raffles.push(newRaffle);
+  res.json({ message: 'Розыгрыш создан!', raffle: newRaffle });
 });
 
 app.get('/api/raffles', (req, res) => {
