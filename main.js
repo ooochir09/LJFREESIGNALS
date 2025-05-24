@@ -1,38 +1,24 @@
-const ADMIN_IDS = [5354822471, 5288984314];
-let currentUser = null;
+async function loadRaffles() {
+  const res = await fetch("https://your-vercel-project.vercel.app/api/raffles");
+  const raffles = await res.json();
 
-function onTelegramAuth(user) {
-  currentUser = user;
-  document.getElementById("user-info").innerHTML = `<p>Привет, ${user.first_name}!</p>`;
-  if (ADMIN_IDS.includes(user.id)) {
-    document.getElementById("admin-panel").style.display = "block";
-  }
-}
+  const list = document.createElement("div");
+  list.classList.add("card");
 
-function addPrize() {
-  const prizeContainer = document.getElementById("prizes");
-  const count = prizeContainer.children.length + 1;
-  const label = document.createElement("label");
-  label.innerHTML = `Приз ${count}:<br><input type="text" name="prize[]" required>`;
-  prizeContainer.appendChild(label);
-}
-
-document.getElementById("raffle-form").addEventListener("submit", async (e) => {
-  e.preventDefault();
-  if (!currentUser || !ADMIN_IDS.includes(currentUser.id)) {
-    alert("Доступ только для админов.");
-    return;
-  }
-
-  const title = document.getElementById("title").value;
-  const prizes = Array.from(document.querySelectorAll("input[name='prize[]']")).map(el => el.value);
-
-  const res = await fetch("https://your-vercel-project.vercel.app/api/createRaffle", {
-    method: "POST",
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({ title, prizes, user_id: currentUser.id })
+  raffles.forEach(r => {
+    const div = document.createElement("div");
+    div.innerHTML = `
+      <h3>${r.title}</h3>
+      <p><strong>Призы:</strong></p>
+      <ol>${r.prizes.map(p => `<li>${p}</li>`).join('')}</ol>
+      <p><em>Создан: ${new Date(r.createdAt).toLocaleString()}</em></p>
+    `;
+    list.appendChild(div);
   });
 
-  const data = await res.json();
-  document.getElementById("status").innerText = data.message;
-});
+  document.body.appendChild(list);
+}
+
+window.onload = () => {
+  loadRaffles();
+};
