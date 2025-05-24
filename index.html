@@ -1,44 +1,27 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Розыгрыши призов</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <script src="script.js" defer></script>
+  <meta charset="UTF-8">
+  <title>Розыгрыши от Цырена</title>
+  <script src="https://telegram.org/js/telegram-widget.js?7" data-telegram-login="YourBotUsername" data-size="large" data-userpic="true" data-request-access="write" data-on-auth="onTelegramAuth"></script>
+  <script src="main.js" defer></script>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Розыгрыши призов</h1>
-            <p>Участвуйте и выигрывайте крутые призы!</p>
-        </header>
+  <h1>Добро пожаловать в розыгрыши!</h1>
+  <div id="user-info"></div>
 
-        <div id="auth-section">
-            <button id="auth-btn" class="btn">Войти через Telegram</button>
-        </div>
-
-        <div id="user-section" class="hidden">
-            <div class="user-info">
-                <img id="user-avatar" src="" alt="Аватар">
-                <div>
-                    <h2 id="user-name"></h2>
-                    <p id="user-id"></p>
-                </div>
-            </div>
-            
-            <div class="raffles">
-                <h2>Текущие розыгрыши</h2>
-                <div id="raffles-list" class="raffles-list">
-                    <!-- Розыгрыши будут загружены через JS -->
-                </div>
-            </div>
-        </div>
-
-        <div id="admin-link" class="hidden">
-            <a href="admin.html" class="btn admin-btn">Админ-панель</a>
-        </div>
-    </div>
+  <div id="admin-panel" style="display:none;">
+    <h2>Создание розыгрыша</h2>
+    <form id="raffle-form">
+      <label>Название розыгрыша:<br><input type="text" id="title" required></label><br>
+      <div id="prizes">
+        <label>Приз 1:<br><input type="text" name="prize[]" required></label>
+      </div>
+      <button type="button" onclick="addPrize()">Добавить приз</button><br><br>
+      <button type="submit">Создать</button>
+    </form>
+    <div id="status"></div>
+  </div>
 </body>
 </html>
