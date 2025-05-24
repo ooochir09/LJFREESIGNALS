@@ -1,5 +1,5 @@
 async function loadRaffles() {
-  const res = await fetch("https://your-vercel-project.vercel.app/api/raffles");
+  const res = await fetch("https://ljfreesignals.vercel.app/");
   const raffles = await res.json();
 
   const list = document.createElement("div");
