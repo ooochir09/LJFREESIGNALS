@@ -14,21 +14,19 @@ app.post('/api/createRaffle', (req, res) => {
   const { title, prizes, user_id } = req.body;
 
   if (!ADMIN_IDS.includes(user_id)) {
-    return res.status(403).json({ message: 'Нет доступа: только админы могут создавать розыгрыши.' });
+    return res.status(403).json({ message: 'Нет доступа' });
   }
 
   if (!title || !Array.isArray(prizes) || prizes.length === 0) {
-    return res.status(400).json({ message: 'Некорректные данные.' });
+    return res.status(400).json({ message: 'Данные невалидны' });
   }
 
   raffles.push({ title, prizes, createdAt: new Date() });
-  res.json({ message: 'Розыгрыш успешно создан!' });
+  res.json({ message: 'Розыгрыш создан!' });
 });
 
 app.get('/api/raffles', (req, res) => {
   res.json(raffles);
 });
 
-app.listen(3000, () => {
-  console.log('Сервер запущен на порту 3000');
-});
+module.exports = app;
