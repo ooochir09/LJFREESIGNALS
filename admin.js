@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const user = JSON.parse(tgUser);
         
         // Проверяем ID пользователя (замените на реальные ID админов)
-        if (user.id === 123456789 || user.id === 987654321) {
+        if (user.id === 5354822471 || user.id === 5288984314) {
             adminAuth.classList.add('hidden');
             adminPanel.classList.remove('hidden');
             loadAdminData();
