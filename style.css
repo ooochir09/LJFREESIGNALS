@@ -6,6 +6,7 @@
   --card-light: #f3f3f3;
   --card-dark: #2c2c2e;
   --accent: #2aabee;
+  --border-radius: 10px;
 }
 
 body {
@@ -17,25 +18,12 @@ body {
 }
 
 @media (prefers-color-scheme: light) {
-  body {
-    background: var(--bg-light);
-    color: var(--text-light);
-  }
-  input, button {
-    background: var(--card-light);
-    color: var(--text-light);
-  }
+  body { background: var(--bg-light); color: var(--text-light); }
+  input, button, .card { background: var(--card-light); color: var(--text-light); }
 }
-
 @media (prefers-color-scheme: dark) {
-  body {
-    background: var(--bg-dark);
-    color: var(--text-dark);
-  }
-  input, button {
-    background: var(--card-dark);
-    color: var(--text-dark);
-  }
+  body { background: var(--bg-dark); color: var(--text-dark); }
+  input, button, .card { background: var(--card-dark); color: var(--text-dark); }
 }
 
 input, button {
@@ -43,7 +31,7 @@ input, button {
   padding: 10px;
   margin: 0.5em 0;
   border: 1px solid #ccc;
-  border-radius: 10px;
+  border-radius: var(--border-radius);
   box-sizing: border-box;
 }
 
@@ -55,6 +43,11 @@ button {
   cursor: pointer;
 }
 
-button:hover {
-  opacity: 0.9;
+button:hover { opacity: 0.9; }
+
+.card {
+  padding: 1rem;
+  margin-top: 1.5rem;
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
