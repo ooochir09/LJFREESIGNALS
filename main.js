@@ -20,19 +20,19 @@ function addPrize() {
 document.getElementById("raffle-form").addEventListener("submit", async (e) => {
   e.preventDefault();
   if (!currentUser || !ADMIN_IDS.includes(currentUser.id)) {
-    alert("Доступ запрещён: только для админов.");
+    alert("Доступ только для админов.");
     return;
   }
 
   const title = document.getElementById("title").value;
   const prizes = Array.from(document.querySelectorAll("input[name='prize[]']")).map(el => el.value);
 
-  const response = await fetch("https://your-backend-host/api/createRaffle", {
+  const res = await fetch("https://your-vercel-project.vercel.app/api/createRaffle", {
     method: "POST",
     headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({title, prizes, user_id: currentUser.id})
+    body: JSON.stringify({ title, prizes, user_id: currentUser.id })
   });
 
-  const result = await response.json();
-  document.getElementById("status").innerText = result.message || "Ошибка";
+  const data = await res.json();
+  document.getElementById("status").innerText = data.message;
 });
