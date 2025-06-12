@@ -1,1 +1,120 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LuckyJet Web</title>
+  <style>
+    body {
+      background-color: #17212b;
+      color: #fff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
 
+    .container {
+      background-color: #1c2733;
+      padding: 20px;
+      border-radius: 10px;
+      width: 320px;
+      text-align: center;
+      box-shadow: 0 0 15px rgba(0,0,0,0.5);
+    }
+
+    .history {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+      gap: 5px;
+    }
+
+    .history span {
+      background-color: #2a2f3a;
+      padding: 3px 7px;
+      border-radius: 4px;
+      font-size: 12px;
+      color: #4cd964;
+    }
+
+    .btn {
+      background-color: #2aabee;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+      margin-top: 10px;
+    }
+
+    .btn:hover {
+      background-color: #229ed9;
+    }
+
+    .value {
+      margin-top: 20px;
+      font-size: 28px;
+      color: #4cd964;
+      font-weight: bold;
+    }
+
+    h2 {
+      margin-bottom: 10px;
+    }
+
+    .status {
+      margin-top: 5px;
+      color: #ccc;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>🎲 LuckyJet</h2>
+    <div class="history" id="history"></div>
+    <button class="btn" onclick="startGame()">Начать</button>
+    <div class="value" id="value">---</div>
+    <div class="status" id="status">Нажмите "Начать"</div>
+  </div>
+
+  <script>
+    let interval;
+    let history = [];
+
+    function startGame() {
+      clearInterval(interval);
+      document.getElementById('value').textContent = '1.0';
+      document.getElementById('status').textContent = 'Игра идёт...';
+
+      let multiplier = 1.0;
+      interval = setInterval(() => {
+        multiplier += Math.random() * 0.1;
+        document.getElementById('value').textContent = multiplier.toFixed(2);
+
+        if (Math.random() < crashChance(multiplier)) {
+          clearInterval(interval);
+          document.getElementById('status').textContent = `💥 Краш на ${multiplier.toFixed(2)}x`;
+          updateHistory(multiplier.toFixed(2));
+        }
+      }, 100);
+    }
+
+    function crashChance(multiplier) {
+      return Math.min(0.01 + Math.pow(multiplier, 2) / 100, 0.9);
+    }
+
+    function updateHistory(value) {
+      history.unshift(value + 'x');
+      if (history.length > 6) history.pop();
+      document.getElementById('history').innerHTML = history.map(v => `<span>${v}</span>`).join(' ');
+    }
+  </script>
+</body>
+</html>
